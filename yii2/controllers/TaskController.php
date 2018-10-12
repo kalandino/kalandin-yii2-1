@@ -12,16 +12,20 @@ class TaskController extends Controller
   	$model = new Test();
 
   	$model->setAttributes([
-      'title' => 'test',
+      'title' => 'Yii2',
       'content' => 'Какая-то Абракадабра'
     ]);
 
-		var_dump($model->validate());
-		var_dump($model->getErrors());
 
-    // return $this->render('index', [
-    //   'title' => 'Yii2 Framework',
-    //   'content' => 'Hello, Yii'
-    // ]);
+    if (!$model->validate()) {
+      var_dump($model->validate());
+      var_dump($model->getErrors());
+      exit;
+    }
+
+    return $this->render('index', [
+      'title' => $model->title,
+      'content' => $model->content
+    ]);
   }
 }

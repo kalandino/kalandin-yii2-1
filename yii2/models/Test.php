@@ -19,7 +19,7 @@ class Test extends Model
 
 	public function myValidate($attribute, $params)
 	{
-		if($this->$attribute != 'test') {
+		if($this->$attribute != 'Yii2') {
 			$this->addError($attribute, 'Валидация не прошла');
 		}
 	}
