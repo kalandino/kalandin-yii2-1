@@ -13,7 +13,7 @@ use Yii;
  * @property int $role_id
  * @property Roles $role
  */
-class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+class Users extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['login', 'password'], 'required'],
-            [['role'], 'integer'],
+            [['role_id'], 'integer'],
             [['login'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 100],
             [['login'], 'unique'],
@@ -46,37 +46,12 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id' => 'ID',
             'login' => 'Login',
             'password' => 'Password',
-            'role' => 'Role',
+            'role_id' => 'Role ID',
         ];
     }
 
     public function getRole()
     {
         return $this->hasOne(Roles::class, ['id' => 'role_id']);
-    }
-
-    public static function findIdentity($id)
-    {
-        return static::findOne($id);
-    }
-    
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        return static::findOne(['access_token' => $token]);
-    }
-    
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-    
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
     }
 }

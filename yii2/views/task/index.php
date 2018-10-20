@@ -1,6 +1,29 @@
-<h1>Предстоящие задачи</h1>
-<?php foreach ($tasks as $task): ?>
-<h2><?= $task->name ?></h2>
-<p><?= $task->description ?></p>
-<p><?= $task->created ?></p>
-<?php endforeach; ?>
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\tables\TaskSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Tasks';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="tasks-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= \yii\widgets\ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => 'view',
+            'viewParams' => [
+               'hideBradcrumbs' => true
+            ]
+    ]); ?>
+</div>

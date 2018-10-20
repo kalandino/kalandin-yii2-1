@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * TaskController implements the CRUD actions for Tasks model.
+ * AdminTaskController implements the CRUD actions for Tasks model.
  */
-class TaskController extends Controller
+class AdminTaskController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -123,21 +123,5 @@ class TaskController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    /**
-     * Detail an existing Tasks model.
-     * If detail is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDetail($id)
-    {
-        $model = $this->findModel($id);
-
-        return $this->render('detail', [
-            'model' => $model,
-        ]);
     }
 }

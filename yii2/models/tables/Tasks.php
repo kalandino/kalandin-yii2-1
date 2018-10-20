@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $date
  * @property string $description
- * @property string $created
+ * @property int $user_id
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -28,10 +29,12 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'description'], 'required'],
-            [['created'], 'safe'],
+            [['name', 'date'], 'required'],
+            [['date'], 'safe'],
+            [['description'], 'string'],
+            [['user_id'], 'integer'],
             [['name'], 'string', 'max' => 50],
-            [['description'], 'string', 'max' => 255],
+            // [['user_id'], 'unique'],
         ];
     }
 
@@ -43,8 +46,9 @@ class Tasks extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'date' => 'Date',
             'description' => 'Description',
-            'created' => 'Created',
+            'user_id' => 'User ID',
         ];
     }
 }

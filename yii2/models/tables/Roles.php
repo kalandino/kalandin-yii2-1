@@ -41,4 +41,13 @@ class Roles extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    public static function getRoles()
+    {
+        $roles = self::find()->all();
+        foreach ($roles as $role) {
+            $select[] = $role->id;
+        }
+        return $select;
+    }
 }

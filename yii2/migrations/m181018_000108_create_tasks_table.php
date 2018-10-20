@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `tasks`.
  */
-class m181015_215617_create_tasks_table extends Migration
+class m181018_000108_create_tasks_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -15,9 +15,12 @@ class m181015_215617_create_tasks_table extends Migration
         $this->createTable('tasks', [
             'id' => $this->primaryKey(),
             'name' => $this->string(50)->notNull(),
-            'description' => $this->string(255)->notNull(),
-            'created' => $this->dateTime()
+            'date' => $this->dateTime()->notNull(),
+            'description' => $this->text(),
+            'user_id' => $this->integer()
         ]);
+
+        $this->addForeignKey('fk_tasks_users', 'tasks', 'user_id', 'users', 'id');
     }
 
     /**
