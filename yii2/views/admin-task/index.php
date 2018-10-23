@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     //         'dataProvider' => $dataProvider,
     //         'itemView' => 'view',
     //         'viewParams' => [
-    //            'hideBradcrumbs' => true
+    //            'hideBreadcrumbs' => true
     //         ]
     // ]);
 

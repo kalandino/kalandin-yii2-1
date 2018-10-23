@@ -2,11 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\tables\Roles;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $users array */
 ?>
 
 <div class="tasks-form">
@@ -21,7 +21,7 @@ use app\models\tables\Roles;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(Roles::getRoles()) ?>
+    <?= $form->field($model, 'user_id')->dropDownList($users) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

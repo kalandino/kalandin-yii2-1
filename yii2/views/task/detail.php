@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Detail';
 
     <?= $this->render('_detail', [
         'model' => $model,
+        'users' => $users,
     ]) ?>
 
 </div>

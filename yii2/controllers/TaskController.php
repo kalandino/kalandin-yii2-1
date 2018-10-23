@@ -4,10 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
+use app\models\tables\Users;
 use app\models\tables\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\base\Event;
 
 /**
  * TaskController implements the CRUD actions for Tasks model.
@@ -66,12 +69,31 @@ class TaskController extends Controller
     {
         $model = new Tasks();
 
+        $setFrom = 'tasks@gmail.com';
+        $setTextBody = "У вас новая задача";
+
+        Event::on(Tasks::class, Tasks::EVENT_AFTER_INSERT, function($model) {
+            $user = Users::find()
+                ->where(["id" => $model->sender->user_id])
+                ->one();
+
+            Yii::$app->mailer->compose()
+                ->setFrom($setFrom)
+                ->setTo($user->email)
+                ->setSubject($model->sender->name)
+                ->setTextBody($setTextBody)
+                ->send();
+        });
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+
         return $this->render('create', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 

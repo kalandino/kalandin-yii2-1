@@ -41,9 +41,13 @@ class TaskSearch extends Tasks
      */
     public function search($params)
     {
+        // $request = date('n');
+        $request = 1;
+
+        // $query = Tasks::find()
+        //         ->where(["MONTH(date)" => $request]);
         $query = Tasks::find()
-                ->where(['>=', 'date', '2018-10-01'])
-                ->andWhere(['<', 'date', '2018-11-01']);
+                ->where(["user_id" => $request]);
 
         // add conditions that should always apply here
 

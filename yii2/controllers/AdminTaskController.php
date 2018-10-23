@@ -4,10 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
+use app\models\tables\Users;
 use app\models\tables\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\base\Event;
 
 /**
  * AdminTaskController implements the CRUD actions for Tasks model.
@@ -70,8 +73,11 @@ class AdminTaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+
         return $this->render('create', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 
