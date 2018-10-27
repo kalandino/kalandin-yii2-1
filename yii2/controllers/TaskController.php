@@ -56,17 +56,20 @@ class TaskController extends Controller
     public function actionView($id)
     {
         $cache = \Yii::$app->cache;
-        $key = 'task';
+        $key = 'task_' . $id;
 
-        if($cache->exists($key)) {
+        if ($cache->exists($key)) {
             $model = $cache->get($key);
         } else {
             $model = $this->findModel($id);
             $cache->set($key, $model, 3600);
         }
 
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+
         return $this->render('view', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 
@@ -79,21 +82,21 @@ class TaskController extends Controller
     {
         $model = new Tasks();
 
-        $setFrom = 'tasks@gmail.com';
-        $setTextBody = "У вас новая задача";
+        // $setFrom = 'tasks@gmail.com';
+        // $setTextBody = "У вас новая задача";
 
-        Event::on(Tasks::class, Tasks::EVENT_AFTER_INSERT, function($model) {
-            $user = Users::find()
-                ->where(["id" => $model->sender->user_id])
-                ->one();
+        // Event::on(Tasks::class, Tasks::EVENT_AFTER_INSERT, function($model) {
+        //     $user = Users::find()
+        //         ->where(["id" => $model->sender->user_id])
+        //         ->one();
 
-            Yii::$app->mailer->compose()
-                ->setFrom($setFrom)
-                ->setTo($user->email)
-                ->setSubject($model->sender->name)
-                ->setTextBody($setTextBody)
-                ->send();
-        });
+        //     Yii::$app->mailer->compose()
+        //         ->setFrom($setFrom)
+        //         ->setTo($user->email)
+        //         ->setSubject($model->sender->name)
+        //         ->setTextBody($setTextBody)
+        //         ->send();
+        // });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->end == NULL || $model->end < $model->date) {
@@ -126,8 +129,11 @@ class TaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+
         return $this->render('update', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 
@@ -172,8 +178,11 @@ class TaskController extends Controller
     {
         $model = $this->findModel($id);
 
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+
         return $this->render('detail', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 }
