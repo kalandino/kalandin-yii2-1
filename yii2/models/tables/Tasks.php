@@ -34,6 +34,7 @@ class Tasks extends \yii\db\ActiveRecord
         return [
             [['name', 'date'], 'required'],
             [['date'], 'safe'],
+            [['end'], 'safe'],
             [['description'], 'string'],
             [['user_id'], 'integer'],
             [['name'], 'string', 'max' => 50],
@@ -50,6 +51,7 @@ class Tasks extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'date' => 'Date',
+            'end' => 'End',
             'description' => 'Description',
             'user_id' => 'User ID',
         ];

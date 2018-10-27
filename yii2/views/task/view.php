@@ -35,6 +35,7 @@ if(!isset($hideBreadcrumbs)) {
             'id',
             'name',
             'date',
+            'end',
             'description:ntext',
             'user_id',
         ],

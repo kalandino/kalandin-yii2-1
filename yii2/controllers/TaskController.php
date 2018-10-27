@@ -55,8 +55,18 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        $cache = \Yii::$app->cache;
+        $key = 'task';
+
+        if($cache->exists($key)) {
+            $model = $cache->get($key);
+        } else {
+            $model = $this->findModel($id);
+            $cache->set($key, $model, 3600);
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -86,6 +96,10 @@ class TaskController extends Controller
         });
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->end == NULL || $model->end < $model->date) {
+                $model->end = $model->date;
+                $model->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

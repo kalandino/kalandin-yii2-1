@@ -16,6 +16,7 @@ use yii\widgets\DetailView;
             'id',
             'name',
             'date',
+            'end',
             'description:ntext',
             'user_id',
         ],

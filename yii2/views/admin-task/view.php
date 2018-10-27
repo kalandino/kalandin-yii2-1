@@ -33,6 +33,7 @@ $this->title = $model->name;
             'id',
             'name',
             'date',
+            'end',
             'description:ntext',
             'user_id',
         ],

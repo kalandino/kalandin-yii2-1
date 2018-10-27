@@ -17,6 +17,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'date')->textInput(['type' => 'date']) ?>
 
+    <?= $form->field($model, 'end')->textInput(['type' => 'date']) ?>
+
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'user_id')->dropDownList($users) ?>
