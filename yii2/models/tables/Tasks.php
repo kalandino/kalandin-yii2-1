@@ -6,6 +6,7 @@ use Yii;
 use app\behaviors\UpdateBehavior;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "tasks".
@@ -18,6 +19,12 @@ use yii\behaviors\TimestampBehavior;
  */
 class Tasks extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var UploadedFile
+     */
+    public $image;
+
     /**
      * {@inheritdoc}
      */
@@ -36,10 +43,23 @@ class Tasks extends \yii\db\ActiveRecord
             [['date'], 'safe'],
             [['end'], 'safe'],
             [['description'], 'string'],
+            [['image'], 'file', 'extensions' => 'jpg, png'],
             [['user_id'], 'integer'],
             [['name'], 'string', 'max' => 50],
             // [['user_id'], 'unique'],
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $baseName = $this->image->getBaseName() . "." . $this->image->getExtension();
+            $fileName = '@webroot/img/' . $baseName;
+            $this->image->saveAs(\Yii::getAlias($fileName));
+            Image::thumbnail($fileName, 120, 80)
+                ->save(\Yii::getAlias('@webroot/img/small/' . $baseName));
+        }
+        return false;
     }
 
     /**
@@ -53,6 +73,7 @@ class Tasks extends \yii\db\ActiveRecord
             'date' => 'Date',
             'end' => 'End',
             'description' => 'Description',
+            'image' => 'Image',
             'user_id' => 'User ID',
         ];
     }

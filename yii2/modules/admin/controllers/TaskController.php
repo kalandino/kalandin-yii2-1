@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
@@ -13,9 +13,9 @@ use yii\helpers\ArrayHelper;
 use yii\base\Event;
 
 /**
- * AdminTaskController implements the CRUD actions for Tasks model.
+ * TaskController implements the CRUD actions for Tasks model.
  */
-class AdminTaskController extends Controller
+class TaskController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -95,9 +95,12 @@ class AdminTaskController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
 
         return $this->render('update', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 

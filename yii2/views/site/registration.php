@@ -13,21 +13,23 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="site-registration">
+    <?php $form = ActiveForm::begin([
+        'id' => 'registration-form',
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+        ],
+    ]); ?>
 
-		    <?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'login')->textInput() ?>
 
-        <?= $form->field($model, 'login')->textInput() ?>
+    <?= $form->field($model, 'password')->passwordInput() ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+    <div class="form-group">
+        <?= Html::submitButton('Registration', ['class' => 'btn btn-success']) ?>
+    </div>
 
-		    <div class="form-group">
-		        <?= Html::submitButton('Registration', ['class' => 'btn btn-success']) ?>
-		    </div>
-
-		    <?php ActiveForm::end(); ?>
-
-		</div>
-
+    <?php ActiveForm::end(); ?>
 
 </div>

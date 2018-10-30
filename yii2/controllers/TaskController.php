@@ -8,6 +8,7 @@ use app\models\tables\Users;
 use app\models\tables\TaskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\base\Event;
@@ -38,6 +39,10 @@ class TaskController extends Controller
      */
     public function actionIndex()
     {
+        // \Yii::$app->language = "en";
+        // echo \Yii::t("app", "error", ['error_code' => 404]);
+        // exit;
+
         $searchModel = new TaskSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -101,8 +106,14 @@ class TaskController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->end == NULL || $model->end < $model->date) {
                 $model->end = $model->date;
+            }
+
+            if ($model->image = UploadedFile::getInstance($model, 'image')) {
+                $model->upload();
+            } else {
                 $model->save();
             }
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

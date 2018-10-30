@@ -41,6 +41,13 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Registration', 'url' => ['/site/registration']],
+            ['label' => Yii::t("app", "menu_language"),
+                'items' => [
+                    ['label' => 'русский', 'url' => 'ru'],
+                    ['label' => 'английский', 'url' => 'en'],
+                ]
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -59,6 +66,7 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
+        <div><?= $this->render('main/select-language') ?></div>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
