@@ -42,12 +42,15 @@ class TaskSearch extends Tasks
     public function search($params)
     {
         // $request = date('n');
-        $request = 1;
+        // $request = 1;
+        $date = Yii::$app->formatter->asTime('now', 'yyyy-MM-dd');
 
         // $query = Tasks::find()
         //         ->where(["MONTH(date)" => $request]);
+        // $query = Tasks::find()
+        //         ->where(["user_id" => $request]);
         $query = Tasks::find()
-                ->where(["user_id" => $request]);
+            ->where(['>', 'deadline', $date]);
 
         // add conditions that should always apply here
 

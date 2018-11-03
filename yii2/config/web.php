@@ -58,14 +58,20 @@ $config = [
                 ]
             ]
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
             'rules' => [
+                '/' => '/',
+                'single/<id>' => 'task/view',
+                'create/<id>' => 'task/create',
+                'detail/<id>' => 'task/detail',
+                'update/<id>' => 'task/update',
+                'delete/<id>' => 'task/delete',
+                '<controller>' => '<controller>'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
