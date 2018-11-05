@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\assets\CalendarAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\tables\TaskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+CalendarAsset::register($this);
 
 $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;

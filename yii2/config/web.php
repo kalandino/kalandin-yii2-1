@@ -69,6 +69,11 @@ $config = [
                 'detail/<id>' => 'task/detail',
                 'update/<id>' => 'task/update',
                 'delete/<id>' => 'task/delete',
+                'admin/single/<id>' => 'admin/task/view',
+                'admin/create/<id>' => 'admin/task/create',
+                'admin/detail/<id>' => 'admin/task/detail',
+                'admin/update/<id>' => 'admin/task/update',
+                'admin/delete/<id>' => 'admin/task/delete',
                 '<controller>' => '<controller>'
             ],
         ],

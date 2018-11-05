@@ -46,7 +46,7 @@ class Tasks extends \yii\db\ActiveRecord
             [['image'], 'file', 'extensions' => 'jpg, png'],
             [['user_id'], 'integer'],
             [['name'], 'string', 'max' => 50],
-            // [['user_id'], 'unique'],
+            [['user_id'], 'unique'],
         ];
     }
 
